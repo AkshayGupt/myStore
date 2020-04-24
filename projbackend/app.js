@@ -5,7 +5,11 @@ const app = express();
 const cors= require("cors");
 const bodyParser= require("body-parser");
 const cookieParser= require("cookie-parser");
+
+//routes
 const authRoutes= require("./routes/auth");
+const userRoutes= require("./routes/user");
+const categoryRoutes= require("./routes/category");
 
 
 //database connection
@@ -25,8 +29,12 @@ app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.json());//if we had to load binary data like audio or images we had to use bodyparser.urlEncoded() instead.
 
+//Routes
+app.use("/api",authRoutes);//as middlewares
+app.use("/api",userRoutes);
+app.use("/api",categoryRoutes);
 
-app.use("/api",authRoutes);
+
 
 // port 
 const port = process.env.PORT ||5000;
