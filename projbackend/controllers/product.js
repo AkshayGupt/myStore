@@ -173,8 +173,6 @@ exports.getAllUniqueCategories = (req,res)=>{
     })
 }
 
-
-
 //Middleware
 exports.updateStock = (req,res,next)=>{
     let operation= req.body.order.product.map(prod =>{
