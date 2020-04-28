@@ -1,7 +1,14 @@
 const express = require("express");
-const {check} = require("express-validator");
 const router = express.Router();
-const {getProductById,createProduct,updateProduct} = require("../controllers/product");
+const {
+getProductById,
+createProduct,
+getProduct,
+updateProduct,
+deleteProduct,
+getAllProducts,
+getAllUniqueCategories
+} = require("../controllers/product");
 const {getUserById} = require("../controllers/user");
 const {isSignedIn,isAuthenticated,isAdmin} = require("../controllers/auth");
 
@@ -9,8 +16,30 @@ const {isSignedIn,isAuthenticated,isAdmin} = require("../controllers/auth");
 router.param("productId",getProductById);
 router.param("userId",getUserById);
 
-//actual routes
-router.post("/product/create/:userId",
-isSignedIn,isAuthenticated,isAdmin,createProduct);
-// router.put("/product/:productId/:userId",isSignedIn,isAuthenticated,isAdmin,updateProduct);
+//create route
+router.post("/product/create/:userId",isSignedIn,isAuthenticated,isAdmin,createProduct);
+
+//read route
+router.get("/product/:productId",getProduct);
+
+//delete route
+router.delete("/product/:productId/:userId",
+isSignedIn,
+isAuthenticated,
+isAdmin,
+deleteProduct
+);
+
+//update route
+router.put("/product/:productId/:userId",
+isSignedIn,
+isAuthenticated,
+isAdmin,
+updateProduct
+);
+
+//listing product
+router.get("/products",getAllProducts);
+router.get("/products/categories",getAllUniqueCategories);
+
 module.exports = router;
