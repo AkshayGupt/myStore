@@ -4,8 +4,7 @@ import Base from './Base';
 
 const Home = ()=>{
     return(
-        <Base title="Home Page" children="" className=" text-white">
-            
+        <Base title="Home Page" description="Online shopping" children="" className=" text-white">   
         </Base>
     )
 }
