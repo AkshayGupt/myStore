@@ -5,8 +5,8 @@ import {signin,authenticate,isAuthenticated} from '../auth/helper/index';
 
 const Signin =()=>{
     const [values,setValues] = useState({
-        email:"",
-        password:"",
+        email:"om@gmail.com",
+        password:"12345",
         error:"",
         loading:false,
         didRedirect:false
@@ -20,36 +20,39 @@ const Signin =()=>{
 
     const onSubmit =(event)=>{
         event.preventDefault();
-        setValues({...values,error:false,loading:true})
+        setValues({...values,error:false,loading:true});
         signin({email,password})
         .then(data=>{
             if(data.error){
                 setValues({...values,error:data.error,loading:false});
             }
             else{
-                authenticate(data,()=> {setValues({...values,didRedirect:true});
-                
+                authenticate(data,()=> {
+                setValues({
+                    ...values,
+                    didRedirect:true
+                });
             });
             }
         })
         .catch(console.log("Sign in failed"))
-    }
+    };
     const performRedirect = ()=>{
 
         //TODO: ADD A REDIRECTION HERE
         if(didRedirect){
-            if(isAuthenticated()!=false){
+            if(isAuthenticated()!== false){
                 const {user}= isAuthenticated();
                 if(user && user.role === 1){
-                    return <p>redirect to admin</p>
+                    return <Redirect to="/admin/dashboard" />
                 }
                 else{
-                    return <p>redirect to user</p>
+                    return <Redirect to="/user/dashboard" />
                 }
             }
             
         }
-        if(isAuthenticated()!=false){
+        if(isAuthenticated()!== false){
             return <Redirect to="/" />;
         }
     }

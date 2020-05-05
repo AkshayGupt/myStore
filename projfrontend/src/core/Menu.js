@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link,withRouter} from 'react-router-dom';
+import {signout, isAuthenticated} from '../auth/helper/index';
 
 const activeTab =(history, path) =>{
     if(history.location.pathname === path){
@@ -20,21 +21,38 @@ const Menu = ({history}) =>(
             <li className="nav-item">
                 <Link style={activeTab(history,"/cart")} className="nav-link" to="/cart">Cart</Link>
             </li>
-            <li className="nav-item">
+            {isAuthenticated() && isAuthenticated().user.role===0 &&(<li className="nav-item">
                 <Link style={activeTab(history,"/user/dashboard")} className="nav-link" to="/user/dashboard">Dashboard</Link>
-            </li>
-            <li className="nav-item">
+            </li>)}
+            {isAuthenticated() && isAuthenticated().user.role === 1 &&(<li className="nav-item">
                 <Link style={activeTab(history,"/admin/dashboard")} className="nav-link" to="/admin/dashboard">Admin. Dashboard</Link>
-            </li>
-            <li className="nav-item">
-                <Link style={activeTab(history,"/signup")} className="nav-link" to="/signup">SignUp</Link>
-            </li>
-            <li className="nav-item">
-                <Link style={activeTab(history,"/signin")} className="nav-link" to="/signin">SignIn</Link>
-            </li>
-            <li className="nav-item">
-                <Link style={activeTab(history,"/signout")} className="nav-link" to="/signout">SignOut</Link>
-            </li>
+            </li>)}
+           
+            {!isAuthenticated() && (
+                <>
+                 <li className="nav-item">
+                 <Link style={activeTab(history,"/signup")} className="nav-link" to="/signup">SignUp</Link>
+                </li>
+                 <li className="nav-item">
+                    <Link style={activeTab(history,"/signin")} className="nav-link" to="/signin">SignIn</Link>
+                </li>
+                </>
+            )}
+            {isAuthenticated() && (
+                <li className="nav-item">
+                    <span
+                    className="nav-link text-warning"
+                    onClick={
+                        ()=>{
+                            signout(()=>{
+                                history.push("/");
+                            });
+                        }}
+                    >
+                        SignOut
+                    </span>
+                </li>
+            )}
         </ul>
     </div>
 )

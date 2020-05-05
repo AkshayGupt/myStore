@@ -1,7 +1,6 @@
 import {API} from '../../backend';
 
 export const signup =(user)=>{
-
     return fetch(`${API}/signup`,{
         method:'POST',
         headers:{
