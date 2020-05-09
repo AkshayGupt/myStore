@@ -19,13 +19,12 @@ exports.createCategory = (req,res)=>{
     category.save((err,category)=>{
         if(err || !category){
             return res.status(400).json({
-                error:"Not able to save category"
+                error:err
             })
         }
         res.json({category});
     })
 }
-
 exports.getAllCategory = (req,res)=>{
     Category.find((err,categories)=>{
         if(err){
@@ -38,13 +37,12 @@ exports.getAllCategory = (req,res)=>{
 }
 
 exports.getCategory = (req,res) =>{
-        res.json(category);
+        res.json(req.category);
 }
 
 exports.updateCategory =(req,res)=>{
     let category= req.category
     category.name=req.body.name
-
     category.save((err,updatedCategory)=>{
         if(err){
             return res.status(400).json({

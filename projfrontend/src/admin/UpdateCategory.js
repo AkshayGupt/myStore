@@ -1,9 +1,9 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import Base from  '../core/Base';
 import {isAuthenticated} from "../auth/helper/index";
 import {Link} from 'react-router-dom';
-import {addCategory} from './helper/adminapicall';
-const AddCategory = ()=>{
+import {addCategory, updateCategory, getCategory} from './helper/adminapicall';
+const UpdateCategory = (props)=>{
 
     const [values,setValues] = useState({
         name:"",
@@ -16,17 +16,39 @@ const AddCategory = ()=>{
     const handleChange = (event)=>{
         setValues({...values,name:event.target.value,error:"",success:false});
     }
+
+    const preload = (categoryId)=>{
+        // console.log("...",categoryId);
+        getCategory(categoryId)
+        .then(data=>{
+            if(data.error){
+                console.log(data.error);
+            }
+            else{
+                setValues({
+                    ...values,
+                    name:data.name,
+                })
+            }
+        })
+    }
+
+    useEffect(() => {
+        preload(props.match.params.categoryId);
+    }, [])
+
     const onSubmit =(event) =>{
         event.preventDefault();
         setValues({...values,success:false,error:""})
         //Call the api
-         addCategory(user._id, token, {name})
+         updateCategory(props.match.params.categoryId,user._id, token, {name})
                 .then(data=>{
                     if(data.error){
                         setValues({...values,error:data.error});
                     }
                     else{
-                        setValues({...values,error:"",success:true,name:""});
+                        setValues({...values,success:true});
+                        console.log(data);
                     }
                 })
                 .catch(err=>console.log(err));
@@ -38,7 +60,7 @@ const AddCategory = ()=>{
             <div className="form-group">
               <p className="lead">Enter the Category</p>
               <input type="text" className="form-control my-3 mx-auto" autoFocus required placeholder="For ex. Summer" value={name} onChange={handleChange} />
-               <button className="btn btn-outline-info btn-lg" onClick={onSubmit}> Create Category</button>
+               <button className="btn btn-outline-info btn-lg" onClick={onSubmit}> Update Category</button>
                </div>
            </form>   
         );
@@ -47,14 +69,14 @@ const AddCategory = ()=>{
     const successMessage=()=>{
         if(success){
             return(
-                <h4 className="alert alert-success"> Category  Created Successfully!</h4>
+                <h4 className="alert alert-success"> Category  updated Successfully!</h4>
             );
         }
     }
     const errorMessage=()=>{
         if(error){
             return(
-                <h4 className="alert alert-danger"> Failed to Create Category!</h4>
+                <h4 className="alert alert-danger"> Failed to update Category!</h4>
                 
             )
         }
@@ -80,4 +102,4 @@ const AddCategory = ()=>{
 }
 
 
-export default AddCategory;
+export default UpdateCategory;

@@ -90,7 +90,7 @@ exports.updateProduct = (req,res) =>{
                         // }
         
         //Updation 
-        const product = req.product;
+        let product = req.product;
         product = _.extend(product,fields);
 
         //Handle file here
@@ -157,7 +157,8 @@ exports.getAllProducts =(req,res)=>{
                 error:"Can't Load products"
             })
         }
-        return(products)
+        // console.log((products));
+        return res.json(products);
     })
 }
 
