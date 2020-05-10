@@ -1,6 +1,7 @@
 import React from 'react';
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom';
 import Home from './core/Home';
+import Cart from './core/Cart';
 import Signup from './user/Signup';
 import Signin from './user/Signin';
 import AdminRoute from './auth/helper/AdminRoute';
@@ -22,6 +23,7 @@ export default function Routes(){
                     <Route path="/signup" exact component={Signup} />
                     <Route path="/signin" exact component={Signin} />
                     <PrivateRoute path="/user/dashboard" exact component={UserDashboard} />
+                    <PrivateRoute path="/cart" exact component={Cart} />
                     <AdminRoute path="/admin/dashboard" exact component={AdminDashBoard} />
                     <AdminRoute path="/admin/create/category" exact component={AddCategory} />
                     <AdminRoute path="/admin/categories" exact component={ManageCategories} />

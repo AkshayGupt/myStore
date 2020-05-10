@@ -7,7 +7,8 @@ getProduct,
 updateProduct,
 deleteProduct,
 getAllProducts,
-getAllUniqueCategories
+getAllUniqueCategories,
+photo
 } = require("../controllers/product");
 const {getUserById} = require("../controllers/user");
 const {isSignedIn,isAuthenticated,isAdmin} = require("../controllers/auth");
@@ -41,5 +42,5 @@ updateProduct
 //listing product
 router.get("/products",getAllProducts);
 router.get("/products/categories",getAllUniqueCategories);
-
+router.get("/product/photo/:productId",photo);
 module.exports = router;
