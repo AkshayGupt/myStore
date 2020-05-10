@@ -4,6 +4,7 @@ import Base from './Base';
 import Card from './Card';
 import {loadCart} from './helper/carthelper';
 import { isAuthenticated } from '../auth/helper';
+import Paymentb from '../payment/Paymentb';
 const Cart = ()=>{
 
     const [products,setProducts] = useState([]);
@@ -13,10 +14,10 @@ const Cart = ()=>{
     },[reload]);
 
 
-    const loadAllProducts = () =>{
+    const loadAllProducts = (products) =>{
         return(
             <div>
-                <h2>Cart Section</h2>
+                <div className="bg-info p-2"><h1>Your Cart</h1></div>
                 {products.map((product,index)=>(
                     <Card
                     key={index} 
@@ -33,9 +34,14 @@ const Cart = ()=>{
 
     const loadCheckout = () =>{
         return(
+            <>
             <div>
-                <h2>Checkout Section</h2>
+                <Paymentb
+                products={products}
+                setReload={setReload}
+                />
             </div>
+            </>
         );
     }
 
@@ -44,7 +50,7 @@ const Cart = ()=>{
             
             <div className="text-center">
                <div className="row">
-                   <div className="col-md-6"> {loadAllProducts()}</div>
+                   <div className="col-md-6"> {products.length>0 ?loadAllProducts(products):<h3>No Products in the cart!</h3>}</div>
                    <div className="col-md-6"> {loadCheckout()}</div>
                </div>
             </div>

@@ -15,12 +15,13 @@ const activeTab =(history, path) =>{
 const Menu = ({history}) =>(
     <div>
         <ul className="nav nav-tabs bg-dark">
+            <li className="nav-brand">
+                <Link style={activeTab(history,"/")} className="nav-link text-info disabled" >myStore</Link>
+            </li>
             <li className="nav-item">
                 <Link style={activeTab(history,"/")} className="nav-link" to="/">Home</Link>
             </li>
-            <li className="nav-item">
-                <Link style={activeTab(history,"/cart")} className="nav-link" to="/cart">Cart</Link>
-            </li>
+           
             {isAuthenticated() && isAuthenticated().user.role===0 &&(<li className="nav-item">
                 <Link style={activeTab(history,"/user/dashboard")} className="nav-link" to="/user/dashboard">Dashboard</Link>
             </li>)}
@@ -31,14 +32,18 @@ const Menu = ({history}) =>(
             {!isAuthenticated() && (
                 <>
                  <li className="nav-item">
-                 <Link style={activeTab(history,"/signup")} className="nav-link" to="/signup">SignUp</Link>
+                 <Link style={activeTab(history,"/signup")} className="nav-link" to="/signup">SignUp<i style={{marginLeft:"8px"}} class="fas fa-user-plus"></i></Link>
                 </li>
                  <li className="nav-item">
-                    <Link style={activeTab(history,"/signin")} className="nav-link" to="/signin">SignIn</Link>
+                    <Link style={activeTab(history,"/signin")} className="nav-link" to="/signin">SignIn<i style={{marginLeft:"8px"}} class="fas fa-sign-in-alt"></i></Link>
                 </li>
                 </>
             )}
             {isAuthenticated() && (
+                <>
+                 <li className="nav-item">
+                 <Link style={activeTab(history,"/cart")} className="nav-link" to="/cart">Cart<i style={{marginLeft:"8px"}} class="fas fa-shopping-cart"></i></Link>
+                </li>
                 <li className="nav-item">
                     <span
                     className="nav-link text-warning"
@@ -49,9 +54,10 @@ const Menu = ({history}) =>(
                             });
                         }}
                     >
-                        SignOut
+                        SignOut <i style={{marginLeft:"8px"}} class="fas fa-sign-out-alt"></i>
                     </span>
                 </li>
+                </>
             )}
         </ul>
     </div>

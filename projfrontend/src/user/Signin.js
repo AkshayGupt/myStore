@@ -5,8 +5,8 @@ import {signin,authenticate,isAuthenticated} from '../auth/helper/index';
 
 const Signin =()=>{
     const [values,setValues] = useState({
-        email:"om@gmail.com",
-        password:"12345",
+        email:"",
+        password:"",
         error:"",
         loading:false,
         didRedirect:false
@@ -38,8 +38,6 @@ const Signin =()=>{
         .catch(console.log("Sign in failed"))
     };
     const performRedirect = ()=>{
-
-        //TODO: ADD A REDIRECTION HERE
         if(didRedirect){
             if(isAuthenticated()!== false){
                 const {user}= isAuthenticated();
@@ -91,7 +89,8 @@ const Signin =()=>{
                             <label className="text-light">Password</label>
                             <input className="form-control" onChange={handleChange("password")} value={password} type="password"  />
                         </div>
-                        <button onClick={onSubmit} className="btn btn-success btn-block">Submit</button>
+                        <button onClick={onSubmit} className="btn btn-success btn-block mb-2">Submit</button>
+                        <p>Not have an account? No problem <Link to="/signup"> <span className="text-info"> Sign Up here! </span></Link></p>
                     </form>
                 </div>
             </div>
@@ -99,7 +98,7 @@ const Signin =()=>{
     };
     
     return(
-        <Base title="Sign in page" description="A page for user to sign in!">
+        <Base title="Sign in" description="Let's shop!">
             {loadingMessage()}
             {errorMessage()}
             {signInForm()}

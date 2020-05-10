@@ -52,15 +52,15 @@ const Card = ({
         );
     }
     return (
-      <div className="card text-white bg-dark border border-info ">
-        <div className="card-header lead">{title}</div>
+      <div className="card text-white bg-dark border border-secondary ">
+        <div className="card-header lead font-italic">{title}</div>
         <div className="card-body">
             {getRedirect()}
              <Imagehelper product={product}/>
           <p className="lead bg-success font-weight-normal text-wrap">
             {description}
           </p>
-          <p className="btn btn-success rounded  btn-sm px-4">{price} Rs.</p>
+          <span style={{height:"50px"}}></span><p className="btn btn-success rounded  btn-sm px-4"><i style={{marginRight:"10px"}} className="fas fa-tag"></i> {price} <i class="fas fa-rupee-sign"></i></p>
           <div className="row">
             <div className="col-12">
              {addToCart && showAddToCart()}

@@ -84,14 +84,16 @@ const Signup =()=>{
                             <label className="text-light">Password</label>
                             <input className="form-control" onChange={handleChange("password")} type="password" value={password}/>
                         </div>
-                        <button onClick={onSubmit} className="btn btn-success btn-block">Submit</button>
+                        <button onClick={onSubmit} className="btn btn-success btn-block mb-2">Submit</button>
+                        <p>Already have an account? Great <Link to="/signin"> <span className="text-info"> Sign In here! </span></Link></p>
+
                     </form>
                 </div>
             </div>
         )
     }
     return(
-        <Base title="Sign up page"  description="A page for user to sign up!">  
+        <Base title="Sign up"  description="Welcome to myStore">  
         {successMessage()}
         {errorMessage()}
         {signUpForm()}

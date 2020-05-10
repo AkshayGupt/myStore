@@ -30,7 +30,7 @@ const Home = ()=>{
         <Base title="Home Page" description="Online shopping" children="" className=" text-white">   
             
             <div className="text-center">
-               <h1 className="text-white text-warning font-weight-bolder font-italic mb-5">T-Shirts</h1>
+               {/* <h1 className="text-white text-warning font-weight-bolder font-italic mb-5">T-Shirts</h1> */}
                <div className="row">
                     {products.map((product,index)=>{
                         return(
