@@ -25,6 +25,7 @@ exports.createOrder = (req,res)=>{
                 error:"Order not created"
             })
         }
+        console.log(order)
         res.json(order); 
     })
 

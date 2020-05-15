@@ -5,8 +5,8 @@ const {getUserById,pushOrderInPurchaseList} = require("../controllers/user");
 const {getProductById,updateStock} = require("../controllers/product");
 const {getOrderById,createOrder,getAllOrders,getOrderStatus,updateStatus} = require("../controllers/order");
 
-router.param("/userId",getUserById);
-router.param("/orderId",getOrderById);
+router.param("userId",getUserById);
+router.param("orderId",getOrderById);
 
 
 router.post("/order/:userId",

@@ -27,6 +27,7 @@ const Signin =()=>{
                 setValues({...values,error:data.error,loading:false});
             }
             else{
+                console.log(data)
                 authenticate(data,()=> {
                 setValues({
                     ...values,
@@ -35,7 +36,7 @@ const Signin =()=>{
             });
             }
         })
-        .catch(console.log("Sign in failed"))
+        .catch(err=>console.log(err))
     };
     const performRedirect = ()=>{
         if(didRedirect){

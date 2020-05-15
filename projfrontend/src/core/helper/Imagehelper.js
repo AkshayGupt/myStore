@@ -2,9 +2,11 @@ import React from 'react'
 import {API} from '../../backend';
 
 
-const Imagehelper = ({product})=> {
+const Imagehelper = ({product,cart=false})=> {
     let imageUrl= product?`${API}/product/photo/${product._id}`:`https://www.cottonking.com/1798-thickbox_default/tshirt-p26230-hsn-6109.jpg`;
-    return (
+    
+    if(!cart){
+      return (
         <div className="rounded border border-success p-2">
             <img
               src={imageUrl}
@@ -15,6 +17,20 @@ const Imagehelper = ({product})=> {
             />
           </div>
     )
+    }
+    else{
+      return (
+        <div className="rounded border border-success p-2">
+            <img
+              src={imageUrl}
+              alt="photo"
+              style={{height:"100px",width:"120px"}}
+              className=" rounded"
+            />
+          </div>
+    )
+    }
+   
 }
 
 export default Imagehelper;

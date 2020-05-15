@@ -176,7 +176,7 @@ exports.getAllUniqueCategories = (req,res)=>{
 
 //Middleware
 exports.updateStock = (req,res,next)=>{
-    let operation= req.body.order.product.map(prod =>{
+    let operation= req.body.order.products.map(prod =>{
         return{
             updateOne: {
                 filter:{_id:prod._id},

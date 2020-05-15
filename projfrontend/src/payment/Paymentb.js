@@ -14,8 +14,6 @@ const Paymentb=({
     reload=undefined
 })=>{
 
-    const {user,token} = isAuthenticated();
-
     const [info,setInfo] = useState({
         loading:false,
         success: false,
@@ -24,10 +22,12 @@ const Paymentb=({
         instance:{}
     });
 
+    const userId = isAuthenticated() && isAuthenticated().user._id;
+    const token = isAuthenticated() && isAuthenticated().token;
+
     const getTheToken = (userId,token)=>{
         getToken(userId,token)
         .then(info=>{
-            // console.log("......",info);
             if(info.error){
                 setInfo({...info,error:info.error});
             }
@@ -37,6 +37,9 @@ const Paymentb=({
             }
         })
     }
+    useEffect(()=>{
+        getTheToken(userId,token);
+    },[]);
 
     const showbtdropIn = () =>{
         return(
@@ -47,16 +50,12 @@ const Paymentb=({
                      options={{ authorization: info.clientToken }}
                      onInstance={(instance) => (info.instance = instance)}
                    />
-                   <button className=" btn btn-block btn-success"onClick={()=>{onPurchase()}}>Buy</button>
+                   <button className=" btn btn-block btn-info"onClick={()=>{onPurchase()}}>Pay</button>
                  </div>
                   ):(<h3>Add in Some products..</h3>)}
             </div>
         );
     }
-
-    useEffect(()=>{
-        getTheToken(user._id,token);
-    },[]);
 
 
     const onPurchase = () =>{
@@ -70,19 +69,19 @@ const Paymentb=({
                     paymentMethodNonce:nonce,
                     amount:getAmount()
                 };
-                processPayment(user._id,token,paymentData)
+                processPayment(userId,token,paymentData)
                 .then(response =>{
                     setInfo({
                         ...info,
                         success:response.success
                     });
-                    console.log("Payment Success");
+                    console.log("Payment Success",response);
                     const orderData={
                         products: products,
                         transaction_id:response.transaction.id,
                         amount:response.transaction.amount
                     }
-                    createOrder(user._id,token,orderData);
+                    createOrder(userId,token,orderData);
                     emptyCart(()=>{})
                     setReload(!reload);
                 })
@@ -91,7 +90,7 @@ const Paymentb=({
                         loading:false,
                         success:false
                     })
-                    console.log("Payment failed");
+                    console.log(err);
 
                 })
             })
@@ -106,9 +105,9 @@ const Paymentb=({
     }
 
     return (
-        <div>
-            <div className="bg-secondary p-2"><h1 className="font-bold mb-3">Payment</h1></div>
-            <div className="bg-secondary py-2"><h5><i style={{marginRight:"8px"}} class="fas fa-file-invoice font-italic">   Amount: </i> {getAmount()}</h5></div>
+        <div>   
+         
+            <div className="bg-secondary py-2"><h5>Final: <i class="fas fa-rupee-sign"></i> {getAmount()}</h5></div>
             {showbtdropIn()}
         </div>
     )

@@ -33,10 +33,9 @@ exports.processPayment = (req,res) =>{
         }
       }, function (err, result) {
           if(err){
-              res.status(500).send(err);
+               res.status(500).send(err);
           }
           else{
-            // console.log("Line 39...  ",result);
               res.send(result);
           }
       });

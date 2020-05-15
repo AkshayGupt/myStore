@@ -31,6 +31,6 @@ Here are some screenshots of various pages:
 ![admin dashboard](images/adminDashboard.PNG)
 
 ## Admin -Add Product
-![add product](images/add-product.PNG)
+![add product](images/addProduct.PNG)
 
 ***

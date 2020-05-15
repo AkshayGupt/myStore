@@ -14,19 +14,20 @@ const activeTab =(history, path) =>{
 
 const Menu = ({history}) =>(
     <div>
+        
         <ul className="nav nav-tabs bg-dark">
             <li className="nav-brand">
                 <Link style={activeTab(history,"/")} className="nav-link text-info disabled" >myStore</Link>
             </li>
-            <li className="nav-item">
-                <Link style={activeTab(history,"/")} className="nav-link" to="/">Home</Link>
+            <li className="nav-item" >
+                <Link style={activeTab(history,"/")} className="nav-link text-right" to="/">Home <i style={{marginLeft:"8px"}} class="fas fa-home"></i></Link>
             </li>
            
             {isAuthenticated() && isAuthenticated().user.role===0 &&(<li className="nav-item">
-                <Link style={activeTab(history,"/user/dashboard")} className="nav-link" to="/user/dashboard">Dashboard</Link>
+                <Link style={activeTab(history,"/user/dashboard")} className="nav-link" to="/user/dashboard">Dashboard<i style={{marginLeft:"8px"}} class="fas fa-tablet-alt"></i></Link>
             </li>)}
             {isAuthenticated() && isAuthenticated().user.role === 1 &&(<li className="nav-item">
-                <Link style={activeTab(history,"/admin/dashboard")} className="nav-link" to="/admin/dashboard">Admin. Dashboard</Link>
+                <Link style={activeTab(history,"/admin/dashboard")} className="nav-link" to="/admin/dashboard">Admin. Dashboard<i style={{marginLeft:"8px"}} class="fas fa-tablet-alt"></i></Link>
             </li>)}
            
             {!isAuthenticated() && (

@@ -14,6 +14,7 @@ import AddProduct from './admin/AddProduct';
 import ManageProduct from './admin/ManageProduct';
 import UpdateProduct from './admin/UpdateProduct';
 import UpdateCategory from './admin/UpdateCategory';
+import Payment from './core/Payment';
 export default function Routes(){
     return(
         <div>
@@ -24,6 +25,7 @@ export default function Routes(){
                     <Route path="/signin" exact component={Signin} />
                     <PrivateRoute path="/user/dashboard" exact component={UserDashboard} />
                     <PrivateRoute path="/cart" exact component={Cart} />
+                    <PrivateRoute path="/payment" exact component={Payment} />
                     <AdminRoute path="/admin/dashboard" exact component={AdminDashBoard} />
                     <AdminRoute path="/admin/create/category" exact component={AddCategory} />
                     <AdminRoute path="/admin/categories" exact component={ManageCategories} />

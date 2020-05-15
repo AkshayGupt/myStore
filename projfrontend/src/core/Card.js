@@ -52,7 +52,7 @@ const Card = ({
         );
     }
     return (
-      <div className="card text-white bg-dark border border-secondary ">
+      <div className="card text-white bg-dark border border-secondary  mb-5">
         <div className="card-header lead font-italic">{title}</div>
         <div className="card-body">
             {getRedirect()}
@@ -62,8 +62,10 @@ const Card = ({
           </p>
           <span style={{height:"50px"}}></span><p className="btn btn-success rounded  btn-sm px-4"><i style={{marginRight:"10px"}} className="fas fa-tag"></i> {price} <i class="fas fa-rupee-sign"></i></p>
           <div className="row">
+            
             <div className="col-12">
-             {addToCart && showAddToCart()}
+             {addToCart && product.stock>0 && showAddToCart()}
+             {addToCart && product.stock==0 && (<p className="text-center text-muted  font-italic bg-seconday">Out Of Stock</p>)}
             </div>
             <div className="col-12">
              {removeFromCart && showRemoveFromCart()}
